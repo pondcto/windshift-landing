@@ -1,10 +1,8 @@
-"use client"
-
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels"
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, rectSortingStrategy } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import ConceptOverlay from '@/components/ConceptOverlay'
 
 function SortableToolItem({ id, name, description, demo }: { id: string; name: string; description: string; demo?: boolean }) {
@@ -49,7 +47,7 @@ export default function Home() {
   const docintelRef = useRef<HTMLDivElement | null>(null)
 
   // Track panel sizes for collapsed state
-  const [panelSizes, setPanelSizes] = useState({
+  const [_panelSizes, setPanelSizes] = useState({
     topPanel: 15,
     projects: 60,
     teams: 40,
@@ -785,3 +783,4 @@ export default function Home() {
     </div>
   )
 }
+

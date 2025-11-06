@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useMemo, useState } from "react";
 
 export type Rect = { x: number; y: number; w: number; h: number };

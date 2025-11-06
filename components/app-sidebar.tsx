@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react"
 import {
   Database,
@@ -14,7 +12,6 @@ import {
   Calculator,
   Eye,
   FileSpreadsheet,
-  Upload,
   ChevronRight,
   ShoppingCart,
   Plane,
@@ -35,10 +32,8 @@ import {
 } from "@/components/ui/sidebar"
 import { useNavigation } from "./navigation-context"
 import { useSidebar } from "@/components/ui/sidebar"
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "react-router-dom";
 import * as Popover from "@radix-ui/react-popover";
-import { cn } from "@/lib/utils";
 
 // WindShift Platform Architecture Data - Aligned with Landing Page
 const platformSections = {
@@ -150,7 +145,8 @@ const platformSections = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const pathname = usePathname();
+  const location = useLocation();
+  const pathname = location.pathname;
   const { setOpen, isMobile, open, state } = useSidebar();
   const [openPopover, setOpenPopover] = React.useState<string | null>(null);
   const popoverTimeout = React.useRef<NodeJS.Timeout | null>(null);
@@ -208,7 +204,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         }}
                       >
                         <Link
-                          href={href}
+                          to={href}
                           className={`p-1.5 rounded-md transition-all duration-200 ${isActive ? 'bg-primary-500/15 dark:bg-primary-500/20' : 'hover:bg-primary-500/5 dark:hover:bg-primary-500/10'}`}
                         >
                           <section.icon className={`h-4 w-4 stroke-[1.5] transition-colors duration-200 ${isActive ? 'text-primary-500 dark:text-primary-400' : 'text-light-text-tertiary dark:text-dark-text-tertiary hover:text-primary-500 dark:hover:text-primary-400'}`} />
@@ -238,7 +234,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         className="h-7 w-full flex items-center justify-center"
                       >
                         <Link
-                          href={href}
+                          to={href}
                           className={`p-1.5 rounded-md transition-all duration-200 ${isActive ? 'bg-primary-500/15 dark:bg-primary-500/20' : 'hover:bg-primary-500/5 dark:hover:bg-primary-500/10'}`}
                           onMouseEnter={() => setHoverNav({ level1: platformSections.workspace.title, level2: section.title })}
                         >
@@ -266,7 +262,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     return (
                       <SidebarMenuItem key={section.title} className="h-7 w-full flex items-center justify-center">
                         <Link
-                          href={href}
+                          to={href}
                           className={`p-1.5 rounded-md transition-all duration-200 ${isActive ? 'bg-primary-500/15 dark:bg-primary-500/20' : 'hover:bg-primary-500/5 dark:hover:bg-primary-500/10'}`}
                           onMouseEnter={() => setHoverNav({ level1: platformSections.knowledgeBase.title, level2: section.title })}
                         >
@@ -294,7 +290,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     return (
                       <SidebarMenuItem key={section.title} className="h-7 w-full flex items-center justify-center">
                         <Link
-                          href={href}
+                          to={href}
                           className={`p-1.5 rounded-md transition-all duration-200 ${isActive ? 'bg-primary-500/15 dark:bg-primary-500/20' : 'hover:bg-primary-500/5 dark:hover:bg-primary-500/10'}`}
                           onMouseEnter={() => setHoverNav({ level1: platformSections.documentIntelligence.title, level2: section.title })}
                         >
@@ -338,7 +334,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               className={`${open ? "pl-6" : ""} text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-hover dark:hover:bg-dark-surface-hover ${isActive ? "bg-light-surface-active text-light-text dark:bg-dark-surface-active dark:text-dark-text" : ""}`}
                             >
                               <Link
-                                href={href}
+                                to={href}
                                 className={`flex items-center gap-2 w-full ${open ? "justify-between" : "justify-center"}`}
                                 onClick={() => setActiveNav({
                                   level1: platformSections.exchange.title,
@@ -374,7 +370,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                   return (
                                     <Link
                                       key={itemHref}
-                                      href={itemHref}
+                                      to={itemHref}
                                       className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[var(--sidebar-accent)] hover:text-[var(--sidebar-accent-foreground)] text-light-text-tertiary dark:text-dark-text-tertiary text-sm"
                                       onClick={() => setActiveNav({
                                         level1: platformSections.exchange.title,
@@ -424,7 +420,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               className={`${open ? "pl-6" : ""} text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-hover dark:hover:bg-dark-surface-hover ${isActive ? "bg-light-surface-active text-light-text dark:bg-dark-surface-active dark:text-dark-text" : ""}`}
                             >
                               <Link
-                                href={href}
+                                to={href}
                                 className={`flex items-center gap-2 w-full ${open ? "justify-between" : "justify-center"}`}
                                 onClick={() => setActiveNav({
                                   level1: platformSections.workspace.title,
@@ -460,7 +456,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                   return (
                                     <Link
                                       key={itemHref}
-                                      href={itemHref}
+                                      to={itemHref}
                                       className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[var(--sidebar-accent)] hover:text-[var(--sidebar-accent-foreground)] text-light-text-tertiary dark:text-dark-text-tertiary text-sm"
                                       onClick={() => setActiveNav({
                                         level1: platformSections.workspace.title,
@@ -501,7 +497,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           className={`${open ? "pl-6" : ""} text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-hover dark:hover:bg-dark-surface-hover ${isActive ? "bg-light-surface-active text-light-text dark:bg-dark-surface-active dark:text-dark-text" : ""}`}
                         >
                           <Link
-                            href={href}
+                            to={href}
                             className={`flex items-center gap-2 w-full ${open ? "justify-between" : "justify-center"}`}
                             onClick={() => setActiveNav({
                               level1: platformSections.knowledgeBase.title,
@@ -538,7 +534,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           className={`${open ? "pl-6" : ""} text-light-text-secondary dark:text-dark-text-secondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface-hover dark:hover:bg-dark-surface-hover ${isActive ? "bg-light-surface-active text-light-text dark:bg-dark-surface-active dark:text-dark-text" : ""}`}
                         >
                           <Link
-                            href={href}
+                            to={href}
                             className={`flex items-center gap-2 w-full ${open ? "justify-between" : "justify-center"}`}
                             onClick={() => setActiveNav({
                               level1: platformSections.documentIntelligence.title,

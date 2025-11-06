@@ -1,5 +1,3 @@
-"use client";
-import React, { useMemo } from "react";
 import { useAnchorRects, Rect } from "./useAnchorRects";
 
 // Boxes are now positioned relative to panel edges (top-center, top-right, etc.)
