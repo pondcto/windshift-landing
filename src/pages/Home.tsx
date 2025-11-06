@@ -5,13 +5,30 @@ import { CSS } from '@dnd-kit/utilities'
 import { useState, useRef } from 'react'
 import ConceptOverlay from '@/components/ConceptOverlay'
 
-function SortableToolItem({ id, name, description, demo }: { id: string; name: string; description: string; demo?: boolean }) {
+function SortableToolItem({ id, name, description, demo, url }: { id: string; name: string; description: string; demo?: boolean; url?: string }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id })
+  const dragStartPos = useRef<{ x: number; y: number } | null>(null)
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    dragStartPos.current = { x: e.clientX, y: e.clientY }
+  }
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (url && dragStartPos.current) {
+      const deltaX = Math.abs(e.clientX - dragStartPos.current.x)
+      const deltaY = Math.abs(e.clientY - dragStartPos.current.y)
+      // Only open URL if it was a click (not a drag)
+      if (deltaX < 5 && deltaY < 5 && !isDragging) {
+        window.open(url, '_blank')
+      }
+    }
+    dragStartPos.current = null
   }
 
   return (
@@ -20,7 +37,9 @@ function SortableToolItem({ id, name, description, demo }: { id: string; name: s
       style={style}
       {...attributes}
       {...listeners}
-      className="p-3 rounded-lg cursor-move hover:bg-secondary transition-colors flex flex-col items-center text-center relative bg-surface border border-default"
+      onMouseDown={handleMouseDown}
+      onClick={handleClick}
+      className={`p-3 rounded-lg ${url ? 'cursor-pointer' : 'cursor-move'} hover:bg-secondary transition-colors flex flex-col items-center text-center relative bg-surface border border-default`}
     >
       {demo && <span className="absolute top-2 right-2 px-2 py-0.5 bg-status-success text-white text-[10px] font-semibold rounded-full whitespace-nowrap">DEMO</span>}
       <p className="text-sm font-semibold mb-1">{name}</p>
@@ -59,7 +78,7 @@ export default function Home() {
   })
 
   const [tools, setTools] = useState([
-    { id: '1', name: 'Agentic Deep Research', description: 'Comprehensive research and analysis', demo: true },
+    { id: '1', name: 'Agentic Deep Research', description: 'Comprehensive research and analysis', demo: true, url: 'https://dev.researcher.app.windshift.io' },
     { id: '2', name: 'Web-Scraping', description: 'Extract data from websites', demo: false },
     { id: '3', name: 'Custom Search', description: 'Advanced search capabilities', demo: false },
     { id: '4', name: 'Survey', description: 'Data collection and surveys', demo: false },
@@ -381,7 +400,18 @@ export default function Home() {
                         <h3 className="text-lg font-bold mb-1 whitespace-nowrap overflow-hidden text-ellipsis">WindShift Data</h3>
                         <p className="text-sm text-secondary mb-3 whitespace-nowrap overflow-hidden text-ellipsis">Proprietary access to WindShift curated data sources</p>
                         <div className="flex flex-col gap-2 flex-1">
-                          <div className="p-3 rounded-lg bg-surface border border-default">
+                          <div
+                            className="p-3 rounded-lg bg-surface border border-default cursor-pointer hover:bg-primary-50 dark:hover:bg-primary-800 transition-colors"
+                            onClick={() => window.open('https://dev.t100.app.windshift.io', '_blank')}
+                            tabIndex={0}
+                            role="button"
+                            onKeyDown={e => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                window.open('https://dev.t100.app.windshift.io', '_blank');
+                              }
+                            }}
+                            aria-label="Go to Aviation Data demo"
+                          >
                             <div className="flex items-center gap-2 mb-1">
                               <p className="text-sm font-semibold whitespace-nowrap overflow-hidden text-ellipsis flex-1">Aviation Data</p>
                               <span className="px-2 py-0.5 bg-status-success text-white text-[10px] font-semibold rounded-full whitespace-nowrap">DEMO</span>
@@ -543,7 +573,7 @@ export default function Home() {
                             <SortableContext items={tools.map(t => t.id)} strategy={rectSortingStrategy}>
                               <div className="grid grid-cols-4 gap-3">
                                 {tools.map((tool) => (
-                                  <SortableToolItem key={tool.id} id={tool.id} name={tool.name} description={tool.description} demo={tool.demo} />
+                                  <SortableToolItem key={tool.id} id={tool.id} name={tool.name} description={tool.description} demo={tool.demo} url={tool.url} />
                                 ))}
                               </div>
                             </SortableContext>

@@ -54,7 +54,7 @@ const platformSections = {
         title: "WindShift Data",
         icon: Database,
         items: [
-          { title: "Aviation Data", icon: Plane },
+          { title: "Aviation Data", icon: Plane, url: "https://dev.t100.app.windshift.io" },
           { title: "Procurement Data", icon: Briefcase },
           { title: "Domain-Specific Data", icon: FolderOpen },
         ],
@@ -90,7 +90,7 @@ const platformSections = {
         title: "Domain-Specific Tools",
         icon: Settings,
         items: [
-          { title: "Deep Research", icon: Search },
+          { title: "Deep Research", icon: Search, url: "https://dev.researcher.app.windshift.io" },
           { title: "Web-Scraping", icon: Globe },
           { title: "Custom Search", icon: Search },
           { title: "Survey", icon: MessageSquare },
@@ -367,6 +367,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               <ul>
                                 {section.items.map(item => {
                                   const itemHref = `/exchange/${slug(section.title)}/${slug(item.title)}`;
+                                  const hasExternalUrl = 'url' in item && typeof item.url === 'string';
+                                  
+                                  if (hasExternalUrl) {
+                                    return (
+                                      <a
+                                        key={item.title}
+                                        href={item.url as string}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[var(--sidebar-accent)] hover:text-[var(--sidebar-accent-foreground)] text-light-text-tertiary dark:text-dark-text-tertiary text-sm"
+                                        onClick={() => setActiveNav({
+                                          level1: platformSections.exchange.title,
+                                          level2: section.title,
+                                          level3: item.title
+                                        })}
+                                      >
+                                        {item.icon && <item.icon className="h-3.5 w-3.5 stroke-[1.5]" />}
+                                        <span>{item.title}</span>
+                                      </a>
+                                    );
+                                  }
+                                  
                                   return (
                                     <Link
                                       key={itemHref}
@@ -453,6 +475,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               <ul>
                                 {section.items.map(item => {
                                   const itemHref = `/workspace/${slug(section.title)}/${slug(item.title)}`;
+                                  const hasExternalUrl = 'url' in item && typeof item.url === 'string';
+                                  
+                                  if (hasExternalUrl) {
+                                    return (
+                                      <a
+                                        key={item.title}
+                                        href={item.url as string}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-[var(--sidebar-accent)] hover:text-[var(--sidebar-accent-foreground)] text-light-text-tertiary dark:text-dark-text-tertiary text-sm"
+                                        onClick={() => setActiveNav({
+                                          level1: platformSections.workspace.title,
+                                          level2: section.title,
+                                          level3: item.title
+                                        })}
+                                      >
+                                        {item.icon && <item.icon className="h-3.5 w-3.5 stroke-[1.5]" />}
+                                        <span>{item.title}</span>
+                                      </a>
+                                    );
+                                  }
+                                  
                                   return (
                                     <Link
                                       key={itemHref}
