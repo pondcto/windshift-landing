@@ -1,0 +1,16 @@
+[phases.setup]
+nixPkgs = ['bun']
+
+[phases.build]
+cmds = [
+    'bun install --frozen-lockfile',
+    'bun run build'
+]
+
+[phases.install]
+# Install a static file server
+cmds = ['bun add -g serve']
+
+[start]
+# Serve the built static files
+cmd = 'bunx serve dist -l 3000'
