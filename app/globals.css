@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Light mode (default) */
+  :root {
+    --color-bg: #f4f8fb;
+    --color-bg-secondary: #e6f0f9;
+    --color-surface: #ffffff;
+    --color-border: #e1e9f1;
+    --color-text: #000328;
+    --color-text-secondary: #003771;
+    --color-text-tertiary: #6690ba;
+    --color-text-muted: #99b5d1;
+    /* Sidebar specific vars for compatibility */
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e1e9f1;
+    --sidebar-accent: #f4f8fb;
+    --sidebar-accent-foreground: #000328;
+  }
+
+  /* Dark mode */
+  .dark {
+    --color-bg: #030310;
+    --color-bg-secondary: #030508;
+    --color-surface: #0b0f12;
+    --color-border: #1a1f24;
+    --color-text: #f4f8fb;
+    --color-text-secondary: #ccdae8;
+    --color-text-tertiary: #99b5d1;
+    --color-text-muted: #6690ba;
+    /* Sidebar specific vars for compatibility */
+    --sidebar-bg: #0b0f12;
+    --sidebar-border: #1a1f24;
+    --sidebar-accent: #111518;
+    --sidebar-accent-foreground: #f4f8fb;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    @apply font-space-grotesk antialiased;
+  }
+
+  /* Dark mode scrollbar colors */
+  .dark * {
+    scrollbar-color: #232930 #0b0f12;
+  }
+  .dark *::-webkit-scrollbar-track {
+    background: #0b0f12;
+  }
+  .dark *::-webkit-scrollbar-thumb {
+    background-color: #232930;
+  }
+  .dark *::-webkit-scrollbar-thumb:hover {
+    background-color: #2f343b;
+  }
+}
+
+@layer components {
+  /* Card component */
+  .card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    @apply rounded-lg p-6 shadow-card transition-all duration-200;
+  }
+
+  .dark .card {
+    @apply shadow-card-dark;
+  }
+
+  .card-hover:hover {
+    @apply shadow-card-hover;
+  }
+
+  .dark .card-hover:hover {
+    @apply shadow-card-dark-hover;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md px-4 py-2 font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none shadow-sm;
+  }
+  .btn-primary {
+    @apply btn bg-primary-500 text-white hover:bg-primary-400 focus:ring-primary-500 focus:ring-offset-light-surface dark:focus:ring-offset-dark-surface;
+  }
+  .btn-secondary {
+    @apply btn bg-light-surface border border-light-border text-light-text hover:bg-light-background dark:bg-dark-surface dark:border-dark-border dark:text-dark-text dark:hover:bg-dark-background;
+  }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-md border border-light-border bg-light-surface px-3 py-2 text-light-text placeholder:text-light-text-tertiary focus:outline-none focus:ring-2 focus:ring-primary-500 dark:bg-dark-surface dark:border-dark-border dark:text-dark-text dark:placeholder:text-dark-text-tertiary;
+  }
+
+  /* Checkboxes */
+  input[type="checkbox"] {
+    @apply appearance-none bg-light-surface border border-light-border rounded focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-colors;
+  }
+  .dark input[type="checkbox"] {
+    @apply bg-dark-surface border-dark-border;
+  }
+  input[type="checkbox"]:checked {
+    @apply bg-primary-500 border-primary-500;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e");
+    background-size: 100% 100%;
+    background-position: 50%;
+    background-repeat: no-repeat;
+  }
+
+  /* Utility classes for semantic colors */
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .text-tertiary {
+    color: var(--color-text-tertiary);
+  }
+
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-secondary {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .border-default {
+    border-color: var(--color-border);
+  }
+
+  /* Demo highlight styles */
+  .demo-highlight {
+    @apply border-2 shadow-md relative;
+    background-color: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.5);
+  }
+
+  .dark .demo-highlight {
+    background-color: rgba(0, 69, 142, 0.15);
+    border-color: rgba(0, 69, 142, 0.8);
+  }
+
+  .demo-badge {
+    @apply absolute top-2 right-2 px-2 py-0.5 bg-primary-500 text-white text-[10px] font-semibold rounded whitespace-nowrap;
+  }
+}
+
+@layer utilities {
+  /* Additional custom utilities can go here */
+}
