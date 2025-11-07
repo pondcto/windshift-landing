@@ -78,7 +78,7 @@ export default function Home() {
   })
 
   const [tools, setTools] = useState([
-    { id: '1', name: 'Agentic Deep Research', description: 'Comprehensive research and analysis', demo: true, url: 'https://dev.researcher.app.windshift.io' },
+    { id: '1', name: 'Agentic Deep Research', description: 'Comprehensive research and analysis', demo: true, url: 'https://dev.researcher.windshift.io' },
     { id: '2', name: 'Web-Scraping', description: 'Extract data from websites', demo: false },
     { id: '3', name: 'Custom Search', description: 'Advanced search capabilities', demo: false },
     { id: '4', name: 'Survey', description: 'Data collection and surveys', demo: false },

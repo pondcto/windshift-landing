@@ -90,7 +90,7 @@ const platformSections = {
         title: "Domain-Specific Tools",
         icon: Settings,
         items: [
-          { title: "Deep Research", icon: Search, url: "https://dev.researcher.app.windshift.io" },
+          { title: "Deep Research", icon: Search, url: "https://dev.researcher.windshift.io" },
           { title: "Web-Scraping", icon: Globe },
           { title: "Custom Search", icon: Search },
           { title: "Survey", icon: MessageSquare },
